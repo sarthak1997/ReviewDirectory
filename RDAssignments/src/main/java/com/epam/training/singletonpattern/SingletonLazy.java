@@ -1,8 +1,9 @@
 package com.epam.training.singletonpattern;
 
 /**
- * This class implements the singleton pattern with lazy instantiation and double locking mechanism.
- * */
+ * This class implements the singleton pattern with lazy instantiation and
+ * double locking mechanism.
+ */
 public class SingletonLazy {
 
   private static SingletonLazy instance = null;
@@ -11,13 +12,13 @@ public class SingletonLazy {
   }
 
   /**
-   * instance distributor method with lazy instantiation
-   * by double locking mechanism.
-   * */
+   * instance distributor method with lazy instantiation by double locking
+   * mechanism.
+   */
   public static SingletonLazy getInstance() {
-    if (instance == null) {
+    if (null == instance) {
       synchronized (SingletonLazy.class) {
-        if (instance == null) {
+        if (null == instance) {
           instance = new SingletonLazy();
         }
       }

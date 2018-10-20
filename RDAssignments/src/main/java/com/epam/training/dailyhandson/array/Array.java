@@ -2,7 +2,8 @@
 package com.epam.training.dailyhandson.array;
 
 /**
- * This class contains all the basic operations with respect to a 1-d array of {@code Number} type.
+ * This class contains all the basic operations with respect to a 1-d array of
+ * {@code Number} type.
  */
 public class Array<T extends Number> {
 
@@ -21,10 +22,10 @@ public class Array<T extends Number> {
    */
   public T sum() {
     Number sum = 0;
-    for (int i = 0; i < size; i++) {
-      sum = this.add(sum,arr[i]);
+    for (int i = 0; size > i; i++) {
+      sum = this.add(sum, arr[i]);
     }
-    return (T)sum;
+    return (T) sum;
   }
 
   private Number add(Number sum, T number) {
@@ -50,7 +51,7 @@ public class Array<T extends Number> {
    * @return {@code T} type value as a result
    */
   public T avg() {
-    return (T)this.divide(this.sum(),size);
+    return (T) this.divide(this.sum(), size);
   }
 
   private Number divide(T number1, Number number2) {
@@ -88,7 +89,7 @@ public class Array<T extends Number> {
    */
   public String join() {
     StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < size - 1; i++) {
+    for (int i = 0; size - 1 > i; i++) {
       builder.append(arr[i] + ", ");
     }
     builder.append(arr[size - 1]);
@@ -99,14 +100,14 @@ public class Array<T extends Number> {
    * overloaded method to join the elements of the array as a {@code String} with
    * a separator provided by the user.
    * 
-   * @param separator which is used to separate array
-   *        elements while joining
+   * @param separator
+   *          which is used to separate array elements while joining
    * 
    * @return {@code String} as a result
    */
   public String join(final String separator) {
     StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < size - 1; i++) {
+    for (int i = 0; size - 1 > i; i++) {
       builder.append(arr[i] + separator + " ");
     }
     builder.append(arr[size - 1]);

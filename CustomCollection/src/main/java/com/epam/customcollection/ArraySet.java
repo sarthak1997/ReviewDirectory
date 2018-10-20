@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import com.epam.exceptions.DuplicateEntryException;
 import com.epam.exceptions.ElementNotFoundException;
+import com.epam.exceptions.NullNotAllowedException;
 
 //Custom Set Collection with generic nature
 //User need to override it's equals and compare method of Comparator<Object> in case of custom object
@@ -47,7 +48,7 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
   @SuppressWarnings("unchecked")
   public T get(int index) throws IndexOutOfBoundsException {
 
-    if (index < 0 || index >= size)
+    if (0 > index || size <= index)
       throw new IndexOutOfBoundsException("SetIndexOutOfBoundException : Invalid Index - " + index);
     T result = (T) listObj[index];
     return result;
@@ -55,6 +56,10 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
   // to add element in the set
   public void add(T element) throws DuplicateEntryException {
+    if (null == element) {
+      throw new NullNotAllowedException("Adding null value to the set is not allowed");
+    }
+
     if (this.contains(element)) {
 
       throw new DuplicateEntryException("DuplicateEntryException : Duplicate elements are not allowed!");
@@ -62,7 +67,7 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
     if (size == capacity) {
       tempArr = new Object[2 * capacity];
-      for (int i = 0; i < size; i++)
+      for (int i = 0; size > i; i++)
         tempArr[i] = listObj[i];
       listObj = null;
       listObj = tempArr;
@@ -73,9 +78,42 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
     size += 1;
   }
 
+  /**
+   * update in set to basically remove the old object and add the new object in
+   * the set more of a replace.
+   * 
+   * @param oldObject
+   *          - object to get updated
+   * @param newObject
+   *          - the new object with updated values
+   */
+  public void update(T oldObject, T newObject) throws ElementNotFoundException, DuplicateEntryException {
+
+    if (null == oldObject || null == newObject) {
+      throw new NullNotAllowedException("Null value in the set is not allowed");
+    }
+
+    if (this.contains(newObject)) {
+      throw new DuplicateEntryException(
+          "The new element you are putting for update" + " is already present in the set!");
+    }
+    for (int i = 0; size > i; i++) {
+      @SuppressWarnings("unchecked")
+      T tempVar = (T) listObj[i];
+      if (tempVar.equals(oldObject)) {
+        listObj[i] = newObject;
+        return;
+      }
+    }
+  }
+
   // to update at particular index
   public void update(int index, T element) throws DuplicateEntryException {
-    if (index < 0 || index >= size)
+    if (null == element) {
+      throw new NullNotAllowedException("Null value in the set is not allowed");
+    }
+
+    if (0 > index || size <= index)
       throw new IndexOutOfBoundsException("SetIndexOutOfBoundException : Invalid Index - " + index);
 
     if (this.contains(element))
@@ -86,17 +124,17 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
   // to remove at particular index
   public void remove(int index) throws IndexOutOfBoundsException {
-    if (index < 0 || index >= size)
+    if (0 > index || size <= index)
       throw new IndexOutOfBoundsException("SetIndexOutOfBoundException : Invalid Index - " + index);
 
-    for (int i = index; i < size - 1; i++) {
+    for (int i = index; size - 1 > i; i++) {
       listObj[i] = listObj[i + 1];
     }
     size = size - 1;
 
     if (size < (capacity / 2)) {
       tempArr = new Object[capacity / 2];
-      for (int i = 0; i < size; i++)
+      for (int i = 0; size > i; i++)
         tempArr[i] = listObj[i];
       listObj = null;
       listObj = tempArr;
@@ -107,8 +145,12 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
   // to remove a particular element.
   public void remove(T element) throws ElementNotFoundException {
+    if (null == element) {
+      throw new NullNotAllowedException("Null value in the set is not present");
+    }
+
     if (this.contains(element)) {
-      for (int i = 0; i < size; i++) {
+      for (int i = 0; size > i; i++) {
         if (listObj[i].equals(element)) {
           this.remove(i);
           return;
@@ -120,8 +162,12 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
   // to find index of a particular element
   public int indexOf(T element) {
+    if (null == element) {
+      throw new NullNotAllowedException("Null value in the set is not present");
+    }
+
     if (this.contains(element)) {
-      for (int i = 0; i < size; i++) {
+      for (int i = 0; size > i; i++) {
         if (listObj[i].equals(element)) {
           return i;
         }
@@ -133,7 +179,7 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
   // return true when an element is present in the set
   @SuppressWarnings("unchecked")
   private boolean contains(T element) {
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; size > i; i++) {
       T tempVar = (T) listObj[i];
 
       if (tempVar.equals(element)) {
@@ -154,7 +200,7 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
     int resultIndex[] = new int[size];
     int resultSize = 0;
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; size > i; i++) {
       if (fr.resolve((T) listObj[i])) {
         resultIndex[i] = i;
         resultSize = resultSize + 1;
@@ -163,14 +209,14 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
     }
 
     ArraySet<T> resultSet = new ArraySet<>();
-    
-    for (int i = 0; i < size; i++) {
-      if (resultIndex[i] != -1) {
-         try {
-         resultSet.add((T)listObj[resultIndex[i]]);
-         } catch (DuplicateEntryException exc) {
-           exc.printStackTrace();
-         }
+
+    for (int i = 0; size > i; i++) {
+      if (-1 != resultIndex[i]) {
+        try {
+          resultSet.add((T) listObj[resultIndex[i]]);
+        } catch (DuplicateEntryException exc) {
+          exc.printStackTrace();
+        }
       }
     }
     return resultSet;
@@ -180,14 +226,15 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
   // defined comparator
   // heap sort is used for sorting
   public static void sort(ArraySet<?> setObj, Comparator<Object> comp) {
+
     int tempSize = setObj.size;
     setObj.buildHeap(comp);
     Object temp[] = new Object[tempSize];
-    for (int i = tempSize - 1; i >= 0; i--) {
+    for (int i = tempSize - 1; 0 <= i; i--) {
       temp[i] = setObj.extractMax(comp);
     }
 
-    for (int i = 0; i < tempSize; i++) {
+    for (int i = 0; tempSize > i; i++) {
       setObj.listObj[i] = temp[i];
     }
 
@@ -212,7 +259,7 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
   // to build the heap by giving any array as an argument
   private void buildHeap(Comparator<Object> comp) {
 
-    for (int i = (size / 2); i >= 0; i--) {
+    for (int i = (size / 2); 0 <= i; i--) {
       this.shiftDown(i, comp);
     }
 
@@ -225,13 +272,13 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
     int left = this.leftChild(index);
 
-    if (left < size && comp.compare(this.listObj[left], this.listObj[maxIndex]) > 0) {
+    if (size > left && 0 < comp.compare(this.listObj[left], this.listObj[maxIndex])) {
       maxIndex = left;
     }
 
     int right = this.rightChild(index);
 
-    if (right < size && comp.compare(this.listObj[right], this.listObj[maxIndex]) > 0) {
+    if (size > right && 0 < comp.compare(this.listObj[right], this.listObj[maxIndex])) {
       maxIndex = right;
     }
 
@@ -265,7 +312,7 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
 
     String result = "Set = [-";
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; size > i; i++) {
       result += listObj[i] + "-";
     }
     result += "]";
@@ -275,21 +322,6 @@ public class ArraySet<T> implements Set<T>, Iterable<T> {
   // to get current size of the set
   public int size() {
     return size;
-  }
-
-  public void update(T oldObject, T newObject) throws ElementNotFoundException, DuplicateEntryException {
-
-    if (this.contains(newObject)) {
-      throw new DuplicateEntryException("The new element you are putting for update is already present in the set!");
-    }
-    for (int i = 0; i < size; i++) {
-      @SuppressWarnings("unchecked")
-      T tempVar = (T) listObj[i];
-      if (tempVar.equals(oldObject)) {
-        listObj[i] = newObject;
-        return;
-      }
-    }
   }
 
 }

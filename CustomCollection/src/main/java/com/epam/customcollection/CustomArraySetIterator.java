@@ -16,7 +16,7 @@ public class CustomArraySetIterator<E> implements Iterator<E> {
 
   public boolean hasNext() {
 
-    if (currentIndex < size && listObj[currentIndex] != null) {
+    if (size > currentIndex && null != listObj[currentIndex]) {
       return true;
     }
 

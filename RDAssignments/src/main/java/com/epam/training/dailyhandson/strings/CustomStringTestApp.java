@@ -4,17 +4,17 @@ import java.util.Scanner;
 
 /**
  * Driver class for {@link CustomString} operations testing.
- * */
+ */
 public class CustomStringTestApp {
 
   /**
    * Driver method to test the operations implemented in Strings class.
-   * */
+   */
   public static void main(String[] args) {
 
     String str = "";
     Scanner scanner = new Scanner(System.in);
-    if (args.length == 0) {
+    if (0 == args.length) {
       System.out.println("Enter the string for operations");
       str = scanner.nextLine();
     } else {

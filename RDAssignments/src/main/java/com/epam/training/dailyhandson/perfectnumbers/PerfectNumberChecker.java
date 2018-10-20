@@ -18,7 +18,7 @@ public class PerfectNumberChecker {
 
     while (low < high) {
       low = low + 1;
-      if (value % low == 0) {
+      if (0 == value % low) {
         factorsSum += low;
         high = value / low;
       }

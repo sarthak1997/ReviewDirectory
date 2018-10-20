@@ -13,9 +13,9 @@ public class CustomLinkedSetIterator<E> implements Iterator<E> {
 
   /**
    * Iterator method to check whether there is a next element in the set.
-   * */
+   */
   public boolean hasNext() {
-    if (iterator != null) {
+    if (null != iterator) {
       return true;
     }
     return false;
@@ -23,7 +23,7 @@ public class CustomLinkedSetIterator<E> implements Iterator<E> {
 
   /**
    * Iterator method to fetch the next element in the set.
-   * */
+   */
   public E next() {
     E result = iterator.getElement();
     iterator = iterator.getNext();

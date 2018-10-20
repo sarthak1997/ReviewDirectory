@@ -4,10 +4,10 @@ import java.text.Normalizer;
 import java.util.regex.Pattern;
 
 /**
- * This class is intended for some custom operations on {@code String} types.
- * It acts as a mutable string class.
- * */
-public class CustomString  {
+ * This class is intended for some custom operations on {@code String} types. It
+ * acts as a mutable string class.
+ */
+public class CustomString {
 
   String str;
 
@@ -25,10 +25,10 @@ public class CustomString  {
     char[] tempArr = str.toCharArray();
     int i;
     for (i = 0; i < tempArr.length; i++) {
-      if ((int) tempArr[i] >= 97 && (int) tempArr[i] <= 122) {
+      if (97 <= (int) tempArr[i] && 122 >= (int) tempArr[i]) {
         tempArr[i] = (char) ((int) tempArr[i] - 32);
         break;
-      } else if ((int) tempArr[i] >= 65 && (int) tempArr[i] <= 90) {
+      } else if (65 <= (int) tempArr[i] && 90 >= (int) tempArr[i]) {
         return;
       }
     }
@@ -47,7 +47,7 @@ public class CustomString  {
    */
   public void encode(char key) {
     char[] tempArr = str.toCharArray();
-    for (int i = 0; i < tempArr.length; i++) {
+    for (int i = 0; tempArr.length > i; i++) {
       tempArr[i] = (char) (tempArr[i] ^ key);
     }
     str = new String(tempArr);
@@ -60,7 +60,7 @@ public class CustomString  {
    */
   public void decode(char key) {
     char[] tempArr = str.toCharArray();
-    for (int i = 0; i < tempArr.length; i++) {
+    for (int i = 0; tempArr.length > i; i++) {
       tempArr[i] = (char) (tempArr[i] ^ key);
     }
     str = new String(tempArr);

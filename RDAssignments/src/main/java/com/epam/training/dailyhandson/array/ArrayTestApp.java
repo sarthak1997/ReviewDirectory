@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Driver class for {@link Array} operations testing.
- * */
+ */
 public class ArrayTestApp {
 
   /**
@@ -23,36 +23,36 @@ public class ArrayTestApp {
     Scanner scanner = new Scanner(System.in);
 
     try {
-      if (args.length != 0) {
+      if (0 != args.length) {
         size = Integer.parseInt(args[0]);
-        if (size < 0) {
+        if (0 > size) {
           System.out.println("Size of the array can not be zero!");
           scanner.close();
           return;
         }
         arr = new Double[size];
 
-        for (int i = 1; i < args.length && i <= size; i++) {
+        for (int i = 1; args.length > 1 && size >= i; i++) {
           arr[i - 1] = Double.parseDouble(args[i]);
         }
         if (args.length - 1 < size) {
           System.out.println("Please enter the remaining " + "" 
               + (size - (args.length - 1)) + " elements");
-          for (int j = args.length - 1; j < size; j++) {
+          for (int j = args.length - 1; size > j; j++) {
             arr[j] = scanner.nextDouble();
           }
         }
       } else {
         System.out.println("Please enter the size of array - ");
         size = scanner.nextInt();
-        if (size < 0) {
+        if (0 > size) {
           System.out.println("Size of the array can not be zero!");
           scanner.close();
           return;
         }
         arr = new Double[size];
         System.out.println("Enter the elemets of the array");
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; size > i; i++) {
           arr[i] = scanner.nextDouble();
         }
       }

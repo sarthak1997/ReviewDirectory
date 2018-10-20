@@ -2,10 +2,9 @@ package com.epam.training.dailyhandson.euclid;
 
 import java.util.Scanner;
 
-
 /**
  * Driver class for {@link Euclid} operations testing.
- * */
+ */
 public class EuclidTestApp {
 
   /**
@@ -21,8 +20,8 @@ public class EuclidTestApp {
     int b;
     Scanner scanner = new Scanner(System.in);
     try {
-      if (args.length < 2) {
-        if (args.length == 0) {
+      if (2 > args.length) {
+        if (0 == args.length) {
           System.out.println("Enter first number for finding greatest common divisor");
           a = scanner.nextInt();
           System.out.println("Enter second number for finding greatest common divisor");

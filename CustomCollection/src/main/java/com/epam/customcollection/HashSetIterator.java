@@ -15,10 +15,10 @@ public class HashSetIterator<E> implements Iterator<E> {
   }
 
   public boolean hasNext() {
-    while (currentIndex < hashTable.length) {
-      if (tempIterator == null) {
+    while (hashTable.length > currentIndex) {
+      if (null == tempIterator) {
         currentIndex++;
-        if(currentIndex < hashTable.length) {
+        if (hashTable.length > currentIndex) {
           tempIterator = hashTable[currentIndex];
         } else {
           return false;
@@ -33,14 +33,13 @@ public class HashSetIterator<E> implements Iterator<E> {
   public E next() {
 
     E result = tempIterator.getElement();
-    if (tempIterator.getNext() == null) {
+    if (null == tempIterator.getNext()) {
       currentIndex++;
       tempIterator = hashTable[currentIndex];
-    }
-    else {
+    } else {
       tempIterator = tempIterator.getNext();
     }
-      return result;
+    return result;
   }
 
 }
