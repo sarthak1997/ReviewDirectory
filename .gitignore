@@ -1,0 +1,12 @@
+*.txt
+*.classpath
+*.project
+*/.settings/*
+*/bin/*
+*.metadata/
+*/target/*
+.metadata
+.recommenders
+.sonarlint
+_classpath.xml
+_project.xml
