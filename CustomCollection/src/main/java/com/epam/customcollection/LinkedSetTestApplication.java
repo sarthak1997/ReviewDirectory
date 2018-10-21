@@ -28,7 +28,7 @@ public class LinkedSetTestApplication {
     testObj.add(s4);
     testObj.add(s5);
     testObj.add(s6);
-    testObj.add(null);
+    testObj.add(s7);
     
     //test for remove
     testObj.remove(s4);
